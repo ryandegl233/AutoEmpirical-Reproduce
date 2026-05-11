@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 from anthropic import Anthropic
 
-os.environ["OPENAI_API_KEY"] = ""
+os.environ["OPENAI_API_KEY"] = "sk-31f1b2a7e3e440adb0994fddf6ae9ed1"
 os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
 
 #load prompts from data/prompts.yaml
@@ -55,7 +55,7 @@ def Query(model, sys, usr, max_retries=3, retry_delay=10):
     if 'gemini' in model:
         client = OpenAI(api_key="", base_url="https://api.openai-proxy.org/v1")
     if 'deepseek' in model:
-        client = OpenAI(api_key="", base_url="https://api.deepseek.com")
+        client = OpenAI(api_key="sk-31f1b2a7e3e440adb0994fddf6ae9ed1", base_url="https://api.deepseek.com")
     if 'gpt' in model or 'o3' in model:
         client = OpenAI(api_key="", base_url="https://api.openai-proxy.org/v1")
     for i in range(max_retries):
@@ -77,7 +77,7 @@ def Query(model, sys, usr, max_retries=3, retry_delay=10):
 
 # model_list = ["gpt-4o-mini", "deepseek-chat"]
 # model_list = ["claude-3-7-sonnet-20250219","o3-2025-04-16","gemini-2.5-flash"]
-model_list = ["gemini-2.5-flash"]
+model_list = ["deepseek-v4-flash"]
 
 for model in model_list:
     results = []
