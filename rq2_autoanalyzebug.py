@@ -9,8 +9,7 @@ from openai import OpenAI
 import pandas as pd
 from typing import List, Tuple
 from anthropic import Anthropic
-os.environ["OPENAI_API_KEY"] = ""
-os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
+os.environ.setdefault("OPENAI_BASE_URL", "https://api.deepseek.com")
 
 # %%
 #load prompts from data/prompts.yaml
@@ -29,8 +28,8 @@ def Query(model, sys, usr, max_retries=3, retry_delay=10):
 
     if 'claude' in model:
         client = Anthropic(
-            base_url='https://api.openai-proxy.org/anthropic',
-            api_key='',
+            base_url=os.getenv("ANTHROPIC_BASE_URL", "https://api.openai-proxy.org/anthropic"),
+            api_key=os.getenv("ANTHROPIC_API_KEY", ""),
         )
         for try_idx in range(5):
             try:
@@ -58,11 +57,20 @@ def Query(model, sys, usr, max_retries=3, retry_delay=10):
     
 
     if 'deepseek' in model:
-        client = OpenAI(api_key="", base_url="https://api.deepseek.com")
+        client = OpenAI(
+            api_key=os.getenv("DEEPSEEK_API_KEY") or os.getenv("OPENAI_API_KEY", ""),
+            base_url=os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com"),
+        )
     if 'gpt' in model or 'o3' in model:
-        client = OpenAI(api_key="", base_url="https://api.openai-proxy.org/v1")
+        client = OpenAI(
+            api_key=os.getenv("OPENAI_API_KEY", ""),
+            base_url=os.getenv("OPENAI_BASE_URL", "https://api.openai-proxy.org/v1"),
+        )
     if 'gemini' in model:
-        client = OpenAI(api_key="", base_url="https://api.openai-proxy.org/v1")
+        client = OpenAI(
+            api_key=os.getenv("OPENAI_API_KEY", ""),
+            base_url=os.getenv("OPENAI_BASE_URL", "https://api.openai-proxy.org/v1"),
+        )
     for i in range(max_retries):
         try:
             response = client.chat.completions.create(

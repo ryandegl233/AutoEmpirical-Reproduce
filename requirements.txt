@@ -1,0 +1,6 @@
+pandas
+pyyaml
+openai
+python-dotenv
+scikit-learn
+camel-ai

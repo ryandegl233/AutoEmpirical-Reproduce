@@ -8,10 +8,11 @@ from tqdm import tqdm,trange
 from openai import OpenAI
 import pandas as pd
 import numpy as np
-from anthropic import Anthropic
+from dotenv import load_dotenv
 
-os.environ["OPENAI_API_KEY"] = "sk-31f1b2a7e3e440adb0994fddf6ae9ed1"
-os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
+load_dotenv()
+YUNWU_BASE_URL = "https://yunwu.ai/v1"
+os.environ.setdefault("OPENAI_BASE_URL", YUNWU_BASE_URL)
 
 #load prompts from data/prompts.yaml
 import yaml
@@ -22,42 +23,10 @@ with open('data/prompts.yaml', 'r') as file:
 df = pd.read_csv('./data/sampled_issues_dataset.csv')
 
 def Query(model, sys, usr, max_retries=3, retry_delay=10):
-
-    if 'claude' in model:
-        client = Anthropic(
-            base_url='https://api.openai-proxy.org/anthropic',
-            api_key='',
-        )
-        for try_idx in range(5):
-            try:
-                message = client.messages.create(
-                    system=sys,
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": usr,
-                        }
-                    ],
-                    model="claude-3-7-sonnet-20250219",
-                    max_tokens=2048
-                )
-
-                
-                final_response = message.content[0].text
-                # print(final_response)
-                return final_response
-            except Exception as e:
-                # print(e)
-                
-                time.sleep(2)
-        return None
-    
-    if 'gemini' in model:
-        client = OpenAI(api_key="", base_url="https://api.openai-proxy.org/v1")
-    if 'deepseek' in model:
-        client = OpenAI(api_key="sk-31f1b2a7e3e440adb0994fddf6ae9ed1", base_url="https://api.deepseek.com")
-    if 'gpt' in model or 'o3' in model:
-        client = OpenAI(api_key="", base_url="https://api.openai-proxy.org/v1")
+    client = OpenAI(
+        api_key=os.getenv("YUNWU_API_KEY") or os.getenv("OPENAI_API_KEY", ""),
+        base_url=os.getenv("YUNWU_BASE_URL") or os.getenv("OPENAI_BASE_URL", YUNWU_BASE_URL),
+    )
     for i in range(max_retries):
         try:
             response = client.chat.completions.create(
@@ -75,9 +44,8 @@ def Query(model, sys, usr, max_retries=3, retry_delay=10):
             continue
     return None
 
-# model_list = ["gpt-4o-mini", "deepseek-chat"]
-# model_list = ["claude-3-7-sonnet-20250219","o3-2025-04-16","gemini-2.5-flash"]
-model_list = ["deepseek-v4-flash"]
+# Representative mainstream chat models for RQ1 autofilteration.
+model_list = ["gpt-5.5", "deepseek-v4-pro", "qwen3-235b-a22b","claude-opus-4-7"]
 
 for model in model_list:
     results = []
