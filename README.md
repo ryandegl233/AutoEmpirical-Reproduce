@@ -113,6 +113,65 @@ python evaluate_mas_results.py --task classification --predictions res/mas_class
 - Classification benchmark: `data/clean_CollectedIssues.csv`
 - Existing baseline outputs: `res/Filteration_*.csv` and `res/Labeling_*.csv`
 
+## Phase-1 Dataset Construction
+
+The phase-1 dataset pipeline turns the empirical bug-study collection workbook
+into a machine-readable source manifest, converts local seed datasets into a
+shared bug-report schema, deduplicates records, and writes reproducible summary
+tables.
+
+Build the current offline dataset:
+
+```powershell
+python scripts/build_phase1_dataset.py
+```
+
+Generated artifacts:
+
+- `data/manifest/dataset_sources.csv`: 52-paper source manifest from
+  `Attachments/AutoEmpirical-Dataset-Collection.xlsx`.
+- `data/interim/<source>/records.csv`: per-source converted records.
+- `data/processed/autoempirical_bug_dataset.csv`: unified phase-1 dataset.
+- `data/processed/data_dictionary.md`: schema and field definitions.
+- `data/processed/quality_report.md`: build summary, validation notes, and
+  source status counts.
+- `data/processed/summary.csv` and `records_by_*.csv`: analysis-ready summary
+  tables.
+
+The first build uses the TensorFlow.js/JavaScript DL local seed data already in
+this repository. Other papers from the workbook are registered as pending or
+deferred in the manifest until their raw datasets are downloaded, licensed, and
+given a converter.
+
+Check and download phase-1 raw sources:
+
+```powershell
+python scripts/download_phase1_sources.py --dry-run
+python scripts/download_phase1_sources.py --categories auto_direct --limit 2
+python scripts/download_phase1_sources.py --source-indexes 7,8,30
+```
+
+The downloader writes raw files under `data/raw/<paper_id>/`, records every
+attempt in `data/manifest/download_status.csv`, and lists manual follow-ups in
+`data/manifest/manual_download_needed.csv`. It prints per-source progress by
+default, skips existing files instead of overwriting them, and treats large or
+ambiguous sources as manual follow-ups. Add `--quiet` only if you want to
+suppress the progress log.
+
+If GitHub returns `HTTP Error 403: rate limit exceeded`, wait for the anonymous
+API limit to reset or set a GitHub token before rerunning:
+
+```powershell
+$env:GITHUB_TOKEN="your_token_here"
+python scripts/download_phase1_sources.py --categories auto_repo_or_dir
+```
+
+You can also retry smaller batches:
+
+```powershell
+python scripts/download_phase1_sources.py --categories auto_repo_or_dir --source-indexes 4,5,6
+```
+
 ## Notes
 
 - The deterministic orchestration and ablation logic live in this repository so
