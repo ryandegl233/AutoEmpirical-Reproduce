@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 res/mas_*.jsonl
 data/raw/
+data/raw_stage1/

@@ -1,0 +1,14 @@
+﻿paper_id,source_index,is_manual_checked_OK,is_existing_in_raw
+ase2018_how_many_of_all_bugs,49,,False
+ase2019_understanding_exception_related_bugs_in,44,,False
+fse2018_bugs_in_the_wild_examining,52,,False
+icpc2018_recommending_frequently_encountered_bugs,48,,False
+icpc2025_llm_bl_large_language_models,12,,False
+icse2020_bugine_a_bug_report_recommendation,38,,False
+icse2021_aid_an_automated_detector_for,31,,False
+icse2023_understanding_and_detecting_on_the,20,,False
+icse2025_testing_refactoring_engine_via_historical,11,,False
+issta2024_an_empirical_study_on_kubernetes,7,,False
+issta2024_bugs_in_pods_understanding_bugs,9,,False
+msr2019_a_dataset_of_non_functional,45,,False
+msr2023_hasbugs_handpicked_haskell_bugs,23,,False

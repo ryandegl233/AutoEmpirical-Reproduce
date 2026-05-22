@@ -1,0 +1,21 @@
+﻿symptom,count
+Crash,616
+Incorrect Functionality,186
+Build & Initialization Failure,141
+performance bug,137
+Poor Performance,114
+Functional error,62
+Stack Trace?; Incorrect Result Output/ Ground Truth Known?,40
+Unknown,36
+Performance degradation,25
+"not clear, need discussion",24
+Incorrect Result Output/ Ground Truth Known?,23
+Unexpected error,23
+Build failure,22
+Display Abnormal,22
+Incorrect query result,21
+Deployment Failure,17
+Assertion failure,17
+Incorrect DBMS state,16
+Warning-style error,16
+Function Abnormal,16

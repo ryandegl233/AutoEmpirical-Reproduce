@@ -1,0 +1,21 @@
+﻿root_cause,count
+Incorrect Code Logic,159
+API Misuse,73
+Dependency Error,61
+Data/Model Inaccessibility,55
+Logic error,50
+Inconsistency,49
+Unimplemented Operator,46
+Incompatibilitty between 3rd-party DL Library and TF.js,42
+Unknown,42
+Device Incompatibility,41
+Incorrect FL Algorithm Implementation,40
+Improper Interaction Initialization/Establishment,39
+limit,38
+parameter,34
+"Incorrect Data Type, Shape & Format",34
+Traditional SE inefficiency,31
+Dependency Incompatibility,31
+Consistency: DBMS state,31
+Improper Model Attribute,30
+hardware,30

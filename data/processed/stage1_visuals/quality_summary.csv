@@ -1,0 +1,10 @@
+﻿column,nonempty,missing,coverage,unique_nonempty
+paper_id,1907,0,1.0,8
+source_project,1907,0,1.0,8
+symptom,1869,38,0.9800734137388568,186
+root_cause,1907,0,1.0,223
+bug_type,1573,334,0.8248557944415312,45
+component,1603,304,0.8405873099108547,112
+sub_component,422,1485,0.22128998426848454,31
+fix_type,1154,753,0.605138961719979,204
+severity_or_impact,0,1907,0.0,0

@@ -1,0 +1,501 @@
+﻿root_cause,symptom,count
+Incorrect Code Logic,Crash,63
+API Misuse,Crash,56
+Data/Model Inaccessibility,Crash,55
+Incorrect Code Logic,Incorrect Functionality,47
+Dependency Error,Build & Initialization Failure,47
+Unimplemented Operator,Crash,43
+Incorrect Code Logic,Poor Performance,37
+Traditional SE inefficiency,performance bug,31
+Incompatibilitty between 3rd-party DL Library and TF.js,Crash,29
+Dependency Incompatibility,Crash,27
+"Incorrect Data Type, Shape & Format",Crash,24
+Logic error,Crash,22
+Misconfiguration,Build & Initialization Failure,21
+Logic error,Functional error,21
+Improper Interaction Initialization/Establishment,Crash,21
+Memory inefficiency (Unreleased memory resources),performance bug,20
+Incorrect FL Algorithm Implementation,Crash,19
+Inconsistency,Crash,18
+Unknown,Poor Performance,18
+Framework Evolution,Crash,17
+Incorrect FL Setup/Configuration,Deployment Failure,17
+Statement correctness: unexpected error,Unexpected error,16
+Improper Model Attribute,Incorrect Functionality,15
+Inconsistent Modules,Crash,15
+Incorrect FL Algorithm Implementation,Incorrect Functionality,15
+Insufficient isolation: incorrect SELECT,Incorrect query result,14
+Consistency: DBMS state,Incorrect DBMS state,14
+Algorithm,Functional error,13
+Import Error,Build & Initialization Failure,13
+Browser Incompatibility,Crash,13
+Memory inefficiency (Unnecessary memory allocation),performance bug,13
+Inconsistency,Functional error,12
+Statement correctness: assertion failure,Assertion failure,12
+Unknown,Crash,12
+Configuration error,Build failure,12
+Other,performance bug,12
+Inconsistency,Warning-style error,12
+Incorrect Code Logic,Build & Initialization Failure,12
+Device Incompatibility,Crash,11
+API Misuse,Incorrect Functionality,11
+Confused Document,Document Error,11
+Device Incompatibility,Incorrect Functionality,11
+Device Incompatibility,Build & Initialization Failure,10
+Excessive isolation,Unnecessary blocking,10
+Unclear Environmental Issue,Crash,10
+Unknown,Incorrect Functionality,10
+Wrong/Missing Dependency Import,Crash,9
+Statement correctness: missing error,Missing error,9
+WebGL Limits,Poor Performance,9
+hardware,"not clear, need discussion",9
+Type confusion,Crash,9
+Incorrect Tensor-related Implementation,Crash,9
+Incorrect Privacy Mechanisms,Crash,9
+Device Incompatibility,Poor Performance,9
+Improper Model Initialization,Crash,9
+Insufficient isolation: missing blocking,Missing blocking,9
+Incompatibilitty between 3rd-party DL Library and TF.js,Build & Initialization Failure,9
+Missing/Incorrect Exception Checking,Crash,8
+Logic Error,Display Abnormal,8
+Incorrect Tensor-related Implementation,Incorrect Functionality,8
+Improper Model Attribute,Poor Performance,8
+Inefficient AI algorithm implementation,performance bug,8
+Threading inefficiency (Lack of parallelization),performance bug,7
+"Incorrect Data Type, Shape & Format",Incorrect Functionality,7
+Improper Model Attribute,Crash,7
+Incorrect Parameter/Message Transfer,Crash,7
+Import Error,Crash,7
+Cross-platform App Framework Incompatibility,Build & Initialization Failure,7
+Syntax Error,Display Abnormal,7
+Consistency: DBMS state,Operation error,7
+Logic Error,Function Abnormal,6
+Corner case,Functional error,6
+Consistency: application state,Incorrect database state,6
+parameter,"not clear, need discussion",6
+Algorithm,Crash,6
+Browser Incompatibility,Incorrect Functionality,6
+Type confusion,Functional error,6
+Others,Unknown,6
+Corner case,Crash,6
+Improper Interaction Initialization/Establishment,Connection Refused,5
+Unsuitable ML/DL Algorithm Selection,Crash,5
+Algorithm,Performance degradation,5
+Browser Incompatibility,Poor Performance,5
+Untimely Update,Build & Initialization Failure,5
+Dependency Error,Crash,5
+Dependency Error,Incorrect Functionality,5
+Misconfiguration,Poor Performance,5
+Others,Incorrect Functionality,5
+Improper Model Evaluation,Crash,5
+Incorrect Training Strategy,Crash,5
+Incorrect Data Split,Crash,5
+Inefficiency for certain input data types,performance bug,5
+Improper Interaction Initialization/Establishment,Incorrect Functionality,5
+Improper Interaction Initialization/Establishment,Unknown,5
+API Misunderstanding,Function Abnormal,4
+Incorrect Data loading,Crash,4
+Hardware component communication overhead (Local communication overhead),performance bug,4
+Improper Entity Alignment,Crash,4
+Others,Crash,4
+Excessive isolation,Low performance,4
+Consistency: application state,Incorrect query result,4
+Corner case,Performance degradation,4
+Dependency Error,Poor Performance,4
+Statement correctness: unexpected error,Operation error,4
+Incorrect Tensor-related Implementation,Unknown,4
+Inconsistency,Performance degradation,4
+Incorrect Data Loading,Crash,4
+Incorrect Parameter/Message Transfer,Incorrect Functionality,4
+Improper Model Evaluation,Incorrect Functionality,4
+Differences in environments,Display Abnormal,4
+Memory,Crash,4
+Inefficient hardware optimization (Wrong device placement),performance bug,3
+Inconsistency,Build failure,3
+Incorrect FL Algorithm Implementation,Unknown,3
+3. i64 Legalization Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,3
+Incompatibilitty between 3rd-party DL Library and TF.js,Poor Performance,3
+Incorrect Data Loading,Unknown,3
+Incorrect Privacy Mechanisms,Incorrect Functionality,3
+Unimplemented Operator,Build & Initialization Failure,3
+Untimely Update,Crash,3
+Unnecessary computation (Unnecessarily gradient computation),performance bug,3
+Corner case,Build failure,3
+Cross-platform App Framework Incompatibility,Poor Performance,3
+Browser Incompatibility,Build & Initialization Failure,3
+C/C++ abstraction,performance bug,3
+Unsuitable ML/DL Algorithm Selection,Incorrect Functionality,3
+Syntax Error,Function Abnormal,3
+Cross-platform App Framework Incompatibility,Incorrect Functionality,3
+Threading inefficiency (Excessive usage of multithreading),performance bug,3
+Referenced types error,Build failure,3
+Concurrency,Performance degradation,3
+limit,"not clear, need discussion",3
+Ineffcient caching,performance bug,3
+Data-Others,Incorrect Functionality,3
+API Misuse,Build & Initialization Failure,3
+4. Emterpreter Parsing Errors,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,3
+math,"not clear, need discussion",3
+"Incorrect Data Type, Shape & Format",Unknown,3
+7. Invalid SIMD Type Operations,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,3
+Matrix computation inefficiency (Use of intermediate matrices),performance bug,3
+Differences in environments,Function Abnormal,3
+Consistency: DBMS state,Crash,3
+Improper Hyperparameter,Crash,3
+Matrix computation inefficiency (Trade-off of using different linear libraries/operators),performance bug,3
+Missing Privacy Protection,Security Risk,3
+No verification of data legality,Nonperceptible,3
+Consistency: DBMS state,Assertion failure,3
+Inconsistent Modules,Build & Initialization Failure,3
+Logic error,Performance degradation,3
+API Misunderstanding,Display Abnormal,3
+Consistency: data constraint,Incorrect query result,2
+Consistency: DBMS state,Incorrect database state,2
+Data Absence,Crash,2
+Statement correctness: wrong error message,Wrong error message,2
+Statement correctness: unexpected error,Assertion failure,2
+Threading inefficiency (Challenges in fine-tuning the optimum number of threads),performance bug,2
+Read-only constraint,Unexpected error,2
+Data-Others,Crash,2
+Untimely Update,Incorrect Functionality,2
+WebGL Limits,Crash,2
+Conflicting Template Variables Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,2
+API Misuse,Poor Performance,2
+Unknown,Build & Initialization Failure,2
+Configuration error,Functional error,2
+parameter,use offset param value,2
+Framework Evolution,Incorrect Functionality,2
+Logic error,Warning-style error,2
+Link Time Optimization Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,2
+Matrix computation inefficiency (Inefficiency for certain size and shape),performance bug,2
+Memory,Performance degradation,2
+Matrix computation inefficiency (Lack of vectorization),performance bug,2
+Matrix computation inefficiency (Inefficient broadcasting),performance bug,2
+Improper Exception Handling,Crash,2
+Hardware component communication overhead (Remote communication overhead),performance bug,2
+Improper Exception Handling,Build & Initialization Failure,2
+Improper Memory Usage,Crash,2
+Improper GPU Usage,Crash,2
+Improper Hyperparameter,Poor Performance,2
+Improper Entity Alignment,Incorrect Functionality,2
+Missing/Incorrect Exception Checking,Unknown,2
+Missing/Incorrect Exception Checking,Incorrect Functionality,2
+Missing/Incorrect Exception Checking,Security Risk,2
+Dependency Incompatibility,Unknown,2
+Export Function Lost,Incorrect Result Output/ Ground Truth Known?; Faulty WebAssembly Output?,2
+Consistency: DBMS state,DBMS hang,2
+Read-only constraint,Missing error,2
+Processing,Functional error,2
+Insufficient isolation: missing blocking,Unexpected error,2
+Improper Model Evaluation,Unknown,2
+Improper Model Initialization,Incorrect Functionality,2
+Incorrect Training Strategy,Poor Performance,2
+Improper Memory Usage,Incorrect Functionality,2
+Incorrect Interaction Closing,Crash,2
+Inefficient hardware optimization (Lack of support for hardware optimization libraries),performance bug,2
+Incorrect FL Algorithm Implementation,Security Risk,2
+4. Unsupported Floating-Point or Precision Loss,Incorrect Result Output/ Ground Truth Known?,2
+3. i64 Legalization Issue,Stack Trace?,2
+1. Stale Reference,Incorrect Result Output/ Ground Truth Known?,2
+"priority,order",Make capability order consistent,1
+1. Incorrect Thread-Safe Types,Incorrect Result Output/ Ground Truth Known?; Cannot Reproduce Locally,1
+1. Incorrect Thread-Safe Types,Stack Trace?,1
+1. Incorrect Thread-Safe Types,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+1. Incorrect Thread-Safe Types,Stack Trace?; Incorrect Result Output/ Ground Truth Known?; Faulty WebAssembly Output?,1
+1. Stale Reference,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+1. Stale Reference,Stack Trace?; Incorrect Result Output/ Ground Truth Known?; Cannot Reproduce Locally,1
+2. Error Code Type Change,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+2. Memory Leak,Incorrect Result Output/ Ground Truth Known?,1
+2. Redundant Warning Message,Incorrect Result Output/ Ground Truth Known?,1
+3. Initial Memory File Includes Zeros,Incorrect Result Output/ Ground Truth Known?,1
+3. Missing Sleep Callback,Incorrect Result Output/ Ground Truth Known?,1
+3. i64 Legalization Issue,Faulty WebAssembly Output?,1
+3. i64 Legalization Issue,Incorrect Result Output/ Ground Truth Known?,1
+limit,move rate limit,1
+limit,navigator mission_block check range for loiter exit,1
+limit,pitch constraint,1
+limit,reinstate tailsitter roll limit,1
+limit,reset to end of VTOL takeoff,1
+limit,second swashplate not being scaled to the H_COL2_MIN and H_COL2_MAX parameters.,1
+limit,this caused bad analog readings,1
+limit,use of WP_NAVALT_MIN,1
+limit,allow steering to Motors beyond -1 to +1 range,1
+limit,bug in manual with TRIM == MIN,1
+limit,changes from rate-limited to non-limited,1
+limit,constrains throttle to between thr_min and thr_max in FBWA/SATABILIZE ect,1
+limit,exit landing state if manual.z is larger than threshold,1
+limit,forward-back acceleration limiting,1
+limit,limit logic for left/right throttles,1
+limit,minor bug for set_max_speed_z(),1
+Closure HTML5 Issue,Stack Trace?; Cannot Reproduce Locally,1
+Closure HTML5 Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Closure Math Issue,Stack Trace?; Cannot Reproduce Locally,1
+Closure WebGL Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Configuration error,Crash,1
+Configuration error,Performance degradation,1
+Configuration error,Warning-style error,1
+limit,a bug where a companion computer or GCS (over a fast link) can cause too much CPU time to be used by MAVLink,1
+BINARYEN_IGNORE_IMPLICIT_TRAPS Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?; Faulty WebAssembly Output?,1
+CI Timing Issue,Stack Trace?; Cannot Reproduce Locally,1
+Chrome Error Scope Behavior Issue,Incorrect Result Output/ Ground Truth Known?,1
+Chrome POST Headers Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Chrome WebWorker Data Passing Slow,Incorrect Result Output/ Ground Truth Known?; Cannot Reproduce Locally,1
+Chrome exitFullscreen Change,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Chrome toString Change,Incorrect Result Output/ Ground Truth Known?,1
+Closure Filesystem Issue,Cannot Reproduce Locally,1
+JS Optimizer Asm2Wasm Minified Input Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+JS Optimizer Coercion Issue,Stack Trace?; Cannot Reproduce Locally,1
+JS Optimizer Local Scope Issue,Stack Trace?; Cannot Reproduce Locally,1
+JS Optimizer Pthreads and Memory Growth Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Large Switch Case Issue,Incorrect Result Output/ Ground Truth Known?,1
+Let Unsupported on Older NodeJS Versions,Stack Trace?; Cannot Reproduce Locally,1
+Linking Object Files Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Logic Error,Nonperceptible,1
+Improper Memory Usage,Hang,1
+Improper Memory Usage,Low Efficiency,1
+Improper Model Evaluation,Poor Performance,1
+Incompatibilitty between 3rd-party DL Library and TF.js,Incorrect Functionality,1
+Inconsistent Modules,Incorrect Functionality,1
+Incorrect Data Loading,Incorrect Functionality,1
+Insufficient isolation: Incorrect SELECT,Incorrect query result,1
+Insufficient isolation: Incorrect SELECT,Unexpected error,1
+Incorrect FL Setup/Configuration,Crash,1
+Incorrect FL Setup/Configuration,Hang,1
+Incorrect Interaction Closing,Incorrect Functionality,1
+Incorrect Parameter/Message Transfer,Unknown,1
+Incorrect Privacy Mechanisms,Security Risk,1
+Incorrect Training Strategy,Incorrect Functionality,1
+Incorrect Training Strategy,Low Efficiency,1
+Incorrect Variable Names Issue,Incorrect Result Output/ Ground Truth Known?,1
+parameter,Unused parameter,1
+parameter,Wrong parameter,1
+parameter,crash because of unknown param,1
+parameter,fix PSC_ACCZ_FILT to _FLTE param conversion,1
+parameter,get_last_update,1
+parameter,invalidate the cached parameter,1
+1. Incorrect Emterpretify Stack State,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Incorrect FL Algorithm Implementation,Hang,1
+OpenGL FullES3 Missing ES2 Dependencies,Stack Trace?; Incorrect Result Output/ Ground Truth Known?; Cannot Reproduce Locally,1
+OpenGL Missing Function Aliases,Stack Trace?,1
+OpenGL glDrawElements WebGL Implementation Issue,Incorrect Result Output/ Ground Truth Known?,1
+Others,Hang,1
+Processing,Crash,1
+Processing,Performance degradation,1
+Pthread Dependent on Filesystem Library,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Pthread Dependent on Filesystem Library,Stack Trace?; Incorrect Result Output/ Ground Truth Known?; Cannot Reproduce Locally,1
+Improper Interaction Initialization/Establishment,Hang,1
+Improper Interaction Initialization/Establishment,Poor Performance,1
+Improper Interaction Initialization/Establishment,Security Risk,1
+MetaDCE Function Scope Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?; Cannot Reproduce Locally,1
+MetaDCE SDL Standalone Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?; Cannot Reproduce Locally,1
+Misconfiguration,Crash,1
+Missing/Incorrect Exception Checking,Low Efficiency,1
+ONLY_MY_CODE Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Improper Entity Alignment,Hang,1
+Improper Entity Alignment,Poor Performance,1
+Improper Entity Alignment,Unknown,1
+Improper Exception Handling,Document Error,1
+Improper Exception Handling,Incorrect Functionality,1
+Improper Hyperparameter,Unknown,1
+Improper Information Sharing,Crash,1
+Improper Information Sharing,Incorrect Functionality,1
+Logic Error,Program Hang,1
+Logic error,Build failure,1
+Logic error,Hang,1
+Framework Evolution,Unknown,1
+HTML5 Fullscreen Callback Issue,Incorrect Result Output/ Ground Truth Known?,1
+IE Promises Unsupported,Stack Trace?,1
+IOStream Priority Issue,Cannot Reproduce Locally,1
+Import Error,Poor Performance,1
+Confused Document,Incorrect Functionality,1
+Confused Document,Poor Performance,1
+Consistency: application state,Unexpected error,1
+Consistency: data constraint,Incorrect database state,1
+Cross-platform App Framework Incompatibility,Crash,1
+Data Absence,Unknown,1
+Referenced types error,Crash,1
+Referenced types error,Performance degradation,1
+Filesystem Dependent on Browser Library,Stack Trace?,1
+Filesystem From Pthread Access Slow,Incorrect Result Output/ Ground Truth Known?,1
+Filesystem Relative Path Issue in Wget,Incorrect Result Output/ Ground Truth Known?; Cannot Reproduce Locally,1
+Filesystem WORKERFS Lookup Issue,Incorrect Result Output/ Ground Truth Known?,1
+Firefox and Chrome Button Mousedown Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Floating Point Modulo Operation Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Floating Point Remainder Operation Issue,Incorrect Result Output/ Ground Truth Known?; Faulty WebAssembly Output?,1
+Confused Document,Build & Initialization Failure,1
+EM_ASM Setjmp Issue,Stack Trace?,1
+ES6 Non-Modifiable Export Issue,Stack Trace?,1
+Excessive isolation,Incorrect DBMS state,1
+Excessive isolation,Unexpected error,1
+Excessive isolation,Unnecessarily long blocking,1
+FPIC Issue,Stack Trace?; Faulty WebAssembly Output?,1
+FPIC Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Fetch with IndexedDB Initialization Issue,Stack Trace?; Cannot Reproduce Locally,1
+Pthread HTML5 Canvas Issue,Stack Trace?,1
+Pthread Missing Function Definition,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Pthreads Custom Export Name Issue,Stack Trace?; Cannot Reproduce Locally,1
+Pthreads MODULARIZE Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Dependency Incompatibility,Hang,1
+Dependency Incompatibility,Incorrect Functionality,1
+Differences in environments,Nonperceptible,1
+Dimension mismatch,Warning-style error,1
+WebGL Gamma Differences,Cannot Reproduce Locally,1
+WebGL Missing Extensions Issue,Incorrect Result Output/ Ground Truth Known?,1
+WebGL drawBuffers Issue,Stack Trace?,1
+Worker Memory Allocation Request Hangs,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+consistency,Configuration (channel mapping),1
+consistency,Incorrectly handle internal magnetometer rotations,1
+consistency,MaxsonarI2C reports no data after 300ms,1
+consistency,Maybe-landed state for VTOL,1
+Unnecessary computation (Unnecessary operation),performance bug,1
+Unsuitable ML/DL Algorithm Selection,Poor Performance,1
+Untimely Update,Document Error,1
+Untimely Update,Poor Performance,1
+WASM_OBJECT_FILES Setjmp Issue,Incorrect Result Output/ Ground Truth Known?,1
+Wasm+Asm.js Build Issue,Stack Trace?; Cannot Reproduce Locally,1
+WebAudio Control Issue,Stack Trace?; Cannot Reproduce Locally,1
+WebGL Canvas Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Syscalls Dependent on Filesystem Library,Stack Trace?,1
+Syscalls Dependent on Filesystem Library,Stack Trace?; Cannot Reproduce Locally,1
+Threading inefficiency (Excessive usage of thread-local variables),performance bug,1
+Threading inefficiency (Thread not returning on time),performance bug,1
+Type confusion,Performance degradation,1
+Unclear Environmental Issue,Connection Refused,1
+Undefined Pointer Location Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Unnecessary computation (Unnecessary node creation),performance bug,1
+SDL2 Symbol Mismatch Issue,Stack Trace?,1
+Safari OpenAL Immutable Native Object Issue,Stack Trace?; Cannot Reproduce Locally,1
+Sigsetjmp/Siglongjmp Unsupported,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Socket Function Missing Dependency,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Socket Host Resolution Unsupported,Incorrect Result Output/ Ground Truth Known?,1
+Source Maps in Wasm-Opt Unsupported,Cannot Reproduce Locally,1
+Stack Trace Format Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+Syntax Error,Nonperceptible,1
+hardware,letting some Pixhawk type boards,1
+hardware,needed advanced timers enabled for complementary PWM,1
+hardware,oled probe on first bus,1
+hardware,orientation in ArduCopter stable,1
+hardware,orientation of 2nd OmnibusF7V2 IMU,1
+hardware,pixhawk1 gyro orientation,1
+hardware,the FMUv4 SBUS parser sets timestamp_last_signal,1
+hardware,voltage sensor connected to fmu adc,1
+hardware,Support for specific hardware,1
+hardware,We need to close uartC to prevent corruption of the bootloader protocol.,1
+hardware,call init on two devices with the same name,1
+hardware,detect conflict between AK09916 and ICM20948,1
+hardware,errors on high bus noise,1
+hardware,fixed stdout in early startup bug,1
+hardware,found during Copter-3.6 testing in which omnibus boards,1
+hardware,hard fault with LightWareI2C,1
+consistency,velocity sent in GLOBAL_POSITION_INT,1
+correction,Correction for is_equal function,1
+correction,Zero Yaw correction during transition and relax attitude,1
+correction,more issues while tests of UAVCAN ESCs,1
+hardware,Function conflict?,1
+hardware,Incorrect RGB led usage (individual status leds),1
+hardware,Lack initialization of uORB Manager,1
+hardware,Lack px4fmu v2 sensor init (again) and cleanup,1
+consistency,Support for different types of UAV,1
+consistency,a bug in LOITER_TURNS in quadplanes,1
+consistency,bad roundoff and inconsistent altitude handling,1
+consistency,configure the EKF to use an order of magnitude larger value for EKF2_ACC_NOISE,1
+consistency,external yaw EK3_MAG_CAL=5 or 6,1
+consistency,fixed plane landing gear,1
+consistency,"not clear, need discussion",1
+consistency,track src with correct label - use MAVLink label,1
+limit,This fixes a problem in TradHeli with the Alt Hold angle limiter being active at hover collective pitch.,1
+limit,VTOL standard preserve PWM_MIN and PWM_MAX,1
+limit,Velocity control,1
+limit,Wrong checking range for parameter,1
+limit,a bug in the turn rate limiting discovered,1
+API Misuse,Unknown,1
+Atomicity,Incorrect DBMS state,1
+Atomicity,Incorrect database state,1
+limit,Limit auto rotations,1
+limit,Make minimum airspeed assumptions,1
+limit,Parameter (FW pitch limit doesn't consider pitch setpoint offset),1
+limit,Pr altitude max fix,1
+limit,Pr move velocity constraints to end,1
+limit,RC channel range checks,1
+limit,The bug could cause the forward throttle to slew on quadplanes at 6x slower than it should,1
+limit,"The issue stemmed from how the sport ""trainer"" operated",1
+innitialize,Incorrect initialization of tecs,1
+innitialize,Incorrect parameter of first run,1
+innitialize,Lack initializing abort_transition bool,1
+innitialize,Lack re-initialization of RTL every time when it gets re-enabled,1
+innitialize,Lack variable initialization,1
+limit,Benewake sends max-range+1m when out of range,1
+limit,Incorrect HIL actuator range,1
+limit,Incorrect parameter for the max altitude,1
+initialization,Critical Bug Fix,1
+initialization,Initialize offsets,1
+initialization,initialise battery,1
+initialize,"not clear, need discussion",1
+initlization,init failure handling,1
+initlization,initialises yaw,1
+initlization,the main loop was being slowed down during the motor test,1
+initlization,uninitialised variable,1
+priority,Incorrect stack of low-priority thread,1
+priority,Incorrect task priority configuration,1
+priority,"Lack probing first, then start measure calls",1
+priority,This change freezes the lost motor detection,1
+priority,compass ordering bug with AP_Periph,1
+priority,mini-pix uart order,1
+priority,"not clear, need discussion",1
+4. Floating Point Precision Issue,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+parameter,remove duplicated parameter,1
+parameter,send multiple parameters,1
+parameter,ser needs to be able to set parameters,1
+parameter,some parameters are being copied as part of the upgrade from Copter-3.6.x to Copter-4.0 some are not,1
+parameter,stop divide by zero if params are 0,1
+parameter,tradheli-Fix parameter metadata errors,1
+1. Incorrect Emterpretify Stack State,Stack Trace?,1
+priority,Incorrect return type of function,1
+math,Incorrect handling of baud rate values in RTPS,1
+math,Incorrect interval between samples,1
+math,Optical flow bugs,1
+math,Takeoff overshoot comes from the hover throttle feedforward,1
+math,The swashplate conversion code previously added was found to not work once the default swashplate type was changed,1
+math,This is a correction to Copter's lean-angle-to-acceleration formula used when transitioning from pilot-lean-angle controlled,1
+parameter,param conversion fix,1
+parameter,param doc for BRD_SAFETYOPTION,1
+limit,vmount,1
+"limit,range",Incorrect HIL/SITL multirotor actuator range,1
+math,Bugs in baro noise simulation,1
+math,Callback would not modify the control value in case that it failed to get an control value,1
+math,Correct HIL_GPS altitude conversion,1
+math,HeliQuad- reference zero collective,1
+math,Improper scaling for mavlink message,1
+math,Incorrect battery estimation,1
+parameter,Param dependencies.,1
+parameter,Param update bugs,1
+parameter,Parameter (improper prefix construction),1
+parameter,TeraRanger a to close reading is not the minimum distance,1
+parameter,The issue is just that we were directly using the PILOT_SPEED_DN parameter,1
+parameter,The parameter conversion code was tested when the failsafes were called BATT_FS_LOW_VOLT,1
+parameter,Toggling between alt sources in flight using the parameter can have unpredictable effects due to the various height offsets,1
+parameter,Unused TECS parameters,1
+math,lat/lon conversions of HIL_STATE_QUATERNION in simulator_mavlink.cpp,1
+math,modifies the calculation of the margin from the polygon fence to be the negative of the closest point,1
+math,rangefinder backends cm to m conversion,1
+math,rotation of moving baseline GPS,1
+parameter,Fix waf --default-parameters,1
+parameter,Hold CS pins high in bootloader,1
+parameter,Incorrect function parameter,1
+parameter,Lack parameter to enable rc stick override,1
+math,Tradheli - fixes slew speed,1
+math,Wrong thrust reduction for yaw control,1
+math,Wrongly computed mixing tables,1
+math,an error when computing the course offset for deepstall,1
+math,declination fusion,1
+math,estimator use of optical flow data,1
+math,full yaw range calculation,1
+math,ignore RCx_TRIM when calculating desired angle,1
+4. Unnecessary Memory Boundary Shifting,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+5. Memory Growth Unnecessarily disabled,Stack Trace?; Cannot Reproduce Locally,1
+5. Undefined Cross-Langauge Type Function,Incorrect Result Output/ Ground Truth Known?,1
+5. Undefined Cross-Langauge Type Function,Stack Trace?,1
+6. Missing Features in Emterpreter,Stack Trace?; Cannot Reproduce Locally,1
+6. Missing Features in Emterpreter,Stack Trace?; Incorrect Result Output/ Ground Truth Known?,1
+7. Async API Implementing Sync,Incorrect Result Output/ Ground Truth Known?,1
+7. Invalid SIMD Type Operations,Incorrect Result Output/ Ground Truth Known?,1
