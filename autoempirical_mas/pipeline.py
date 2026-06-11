@@ -20,9 +20,21 @@ from .prompts import (
     filtering_agent_prompt,
     root_cause_agent_prompt,
     single_classification_prompt,
+    stage2_comment_analyzer_prompt,
+    stage2_link_analyzer_prompt,
+    stage2_metadata_analyzer_prompt,
+    stage2_text_analyzer_prompt,
+    stage2_validity_critic_prompt,
     symptom_agent_prompt,
 )
 from .schemas import AgentCall, ExperimentResult, IssueRecord
+from .stage2 import (
+    arbitrate_stage2,
+    make_stage2_user_prompt,
+    normalize_critic_output,
+    normalize_stage2_analyzer_outputs,
+    synthesize_stage2_evidence,
+)
 
 
 FILTER_SCHEMA = (
@@ -47,7 +59,9 @@ class MASPipeline:
         start = time.perf_counter()
         calls: List[AgentCall] = []
 
-        if issue.task_type == "filtering":
+        if self.variant == "stage2_verify_v2":
+            final_output = self._run_stage2_verify_v2(issue, calls)
+        elif issue.task_type == "filtering":
             final_output = self._run_filtering(issue, calls)
         else:
             final_output = self._run_classification(issue, calls)
@@ -68,6 +82,43 @@ class MASPipeline:
             total_tokens=sum(call.total_tokens for call in calls),
             api_calls=len(calls),
         )
+
+    def _run_stage2_verify_v2(self, issue: IssueRecord, calls: List[AgentCall]) -> Dict:
+        prompt = make_stage2_user_prompt(issue)
+        text_agent = RoleAgent("Stage2 Text Analyzer", stage2_text_analyzer_prompt(), self.llm)
+        comment_agent = RoleAgent("Stage2 Comment Analyst", stage2_comment_analyzer_prompt(), self.llm)
+        link_agent = RoleAgent("Stage2 Link Analyst", stage2_link_analyzer_prompt(), self.llm)
+        metadata_agent = RoleAgent("Stage2 Metadata Analyzer", stage2_metadata_analyzer_prompt(), self.llm)
+
+        text_call = text_agent.run(prompt)
+        comment_call = comment_agent.run(prompt)
+        link_call = link_agent.run(prompt)
+        metadata_call = metadata_agent.run(prompt)
+        calls.extend([text_call, comment_call, link_call, metadata_call])
+
+        text, comments, links, metadata = normalize_stage2_analyzer_outputs(
+            text_call.parsed_output,
+            comment_call.parsed_output,
+            link_call.parsed_output,
+            metadata_call.parsed_output,
+            issue,
+        )
+        synthesized = synthesize_stage2_evidence(text, comments, links, metadata)
+
+        critic = None
+        if synthesized["confidence"] < 0.75:
+            critic_agent = RoleAgent("Stage2 Validity Critic", stage2_validity_critic_prompt(), self.llm)
+            critic_prompt = (
+                prompt
+                + f"\n\n## Stage2 Analyzer Outputs\n"
+                + str({"text": text, "comments": comments, "links": links, "metadata": metadata})
+                + f"\n\n## Synthesized Verdict\n{synthesized}"
+            )
+            critic_call = critic_agent.run(critic_prompt)
+            calls.append(critic_call)
+            critic = normalize_critic_output(critic_call.parsed_output, synthesized)
+
+        return arbitrate_stage2(issue, synthesized, critic, api_calls=len(calls))
 
     def _run_evidence(self, issue: IssueRecord, calls: List[AgentCall]) -> Optional[Dict]:
         if self.variant == "mas_without_evidence":

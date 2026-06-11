@@ -72,3 +72,63 @@ def arbitrator_prompt(task_name: str) -> str:
         "label and lower confidence.\n"
         + JSON_ONLY
     )
+
+
+def stage2_text_analyzer_prompt() -> str:
+    return (
+        "You are the Text Analyzer Agent. Follow these steps in order:\n"
+        "STEP 1 - Scan title and body for bug-report signals: error messages, stack traces, crash, fail, "
+        "wrong, unexpected, expected-vs-actual behavior, reproducible steps, and environment info.\n"
+        "STEP 2 - Scan for non-bug signals: feature request, how-to question, documentation request, "
+        "working as intended, or usage confusion.\n"
+        "STEP 3 - Account for short body. If body length is under 100 characters, lower confidence.\n"
+        + JSON_ONLY
+        + '\nSchema: {"bug_signals":["..."],"non_bug_signals":["..."],'
+        + '"text_verdict":"likely_bug|likely_not_bug|ambiguous","confidence":0.0-1.0,'
+        + '"body_quality":"rich|short|url_only|absent"}'
+    )
+
+
+def stage2_comment_analyzer_prompt() -> str:
+    return (
+        "You are the Comment Analyst Agent. Extract maintainer or developer signals from comments. "
+        "Confirmed fixes, merged PRs, and maintainer confirmations support confirmed_bug. "
+        "Working-as-intended, duplicate, usage-error, and feature-request statements support rejected.\n"
+        + JSON_ONLY
+        + '\nSchema: {"confirmation_signals":["..."],"rejection_signals":["..."],'
+        + '"developer_verdict":"confirmed_bug|rejected|ambiguous|no_comments",'
+        + '"confidence":0.0-1.0,"key_quote":"short quote or empty"}'
+    )
+
+
+def stage2_link_analyzer_prompt() -> str:
+    return (
+        "You are the Link Analyst Agent. Extract PR and commit links from the issue report. "
+        "Classify whether linked evidence indicates a merged fix, an open PR, no fix, or cannot determine.\n"
+        + JSON_ONLY
+        + '\nSchema: {"linked_prs":["..."],"linked_commits":["..."],'
+        + '"fix_evidence":"merged_fix|open_pr|no_fix|cannot_determine","confidence":0.0-1.0}'
+    )
+
+
+def stage2_metadata_analyzer_prompt() -> str:
+    return (
+        "You are the Metadata Analyzer Agent. Use structured metadata such as labels, state, milestone, "
+        "and issue URL only. Bug or confirmed labels support likely_bug; wontfix, invalid, duplicate, "
+        "question, documentation, and enhancement labels support likely_not_bug.\n"
+        + JSON_ONLY
+        + '\nSchema: {"github_labels":["..."],"issue_state":"open|closed|unknown",'
+        + '"has_bug_label":true|false,"has_wontfix_label":true|false,'
+        + '"metadata_verdict":"likely_bug|likely_not_bug|ambiguous","confidence":0.0-1.0}'
+    )
+
+
+def stage2_validity_critic_prompt() -> str:
+    return (
+        "You are the Validity Critic. Check only for these invalid-bug patterns: "
+        "wrong_version, usage_error, duplicate, feature_request. If none match, keep the synthesized verdict.\n"
+        + JSON_ONLY
+        + '\nSchema: {"invalid_pattern":"none|wrong_version|usage_error|duplicate|feature_request",'
+        + '"revised_verdict":"Accepted|Rejected|Uncertain","revised_confidence":0.0-1.0,'
+        + '"evidence_for_revision":["..."]}'
+    )

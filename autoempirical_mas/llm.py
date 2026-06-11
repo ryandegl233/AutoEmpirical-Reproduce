@@ -36,12 +36,15 @@ def load_env_file(path: str = ".env") -> None:
         key, value = stripped.split("=", 1)
         key = key.strip()
         value = value.strip().strip('"').strip("'")
-        os.environ.setdefault(key, value)
+        if value and not os.environ.get(key):
+            os.environ[key] = value
 
 
 def infer_base_url(model: str) -> Optional[str]:
     if "deepseek" in model:
         return os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
+    if os.getenv("YUNWU_API_KEY"):
+        return os.getenv("YUNWU_BASE_URL") or os.getenv("OPENAI_BASE_URL")
     return os.getenv("OPENAI_BASE_URL")
 
 
@@ -50,6 +53,8 @@ def infer_api_key(model: str) -> Optional[str]:
         return os.getenv("DEEPSEEK_API_KEY") or os.getenv("OPENAI_API_KEY")
     if "claude" in model:
         return os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENAI_API_KEY")
+    if os.getenv("YUNWU_API_KEY"):
+        return os.getenv("YUNWU_API_KEY")
     return os.getenv("OPENAI_API_KEY")
 
 
@@ -143,7 +148,41 @@ class MockLLMClient(BaseLLMClient):
         lower = user_prompt.lower()
         system_lower = system_prompt.lower()
         agent_lower = agent_name.lower()
-        if "evidence" in agent_lower:
+        if "stage2 text" in agent_lower:
+            verdict = "likely_bug" if any(k in lower for k in ["error", "bug", "fail", "crash", "warning"]) else "ambiguous"
+            content = (
+                '{"bug_signals":["mock text signal"],"non_bug_signals":[],'
+                '"text_verdict":"%s","confidence":0.70,"body_quality":"rich"}' % verdict
+            )
+        elif "stage2 comment" in agent_lower:
+            if any(k in lower for k in ["fixed", "pr #", "confirmed", "merged"]):
+                content = (
+                    '{"confirmation_signals":["mock maintainer fix signal"],"rejection_signals":[],'
+                    '"developer_verdict":"confirmed_bug","confidence":0.82,"key_quote":"mock fix quote"}'
+                )
+            else:
+                content = (
+                    '{"confirmation_signals":[],"rejection_signals":[],"developer_verdict":"ambiguous",'
+                    '"confidence":0.30,"key_quote":""}'
+                )
+        elif "stage2 link" in agent_lower:
+            if "pull/" in lower or "commit/" in lower or "pr #" in lower:
+                content = '{"linked_prs":["mock-pr"],"linked_commits":[],"fix_evidence":"merged_fix","confidence":0.86}'
+            else:
+                content = '{"linked_prs":[],"linked_commits":[],"fix_evidence":"cannot_determine","confidence":0.20}'
+        elif "stage2 metadata" in agent_lower:
+            content = (
+                '{"github_labels":[],"issue_state":"closed","has_bug_label":false,"has_wontfix_label":false,'
+                '"metadata_verdict":"ambiguous","confidence":0.30}'
+            )
+        elif "stage2 validity" in agent_lower:
+            pattern = "feature_request" if "feature request" in lower else "none"
+            verdict = "Rejected" if pattern != "none" else "Uncertain"
+            content = (
+                '{"invalid_pattern":"%s","revised_verdict":"%s","revised_confidence":0.70,'
+                '"evidence_for_revision":["mock critic evidence"]}' % (pattern, verdict)
+            )
+        elif "evidence" in agent_lower:
             content = '{"evidence":["mock issue evidence"],"missing_context":[],"ambiguity_notes":[]}'
         elif "critic" in agent_lower:
             content = '{"is_consistent":true,"concerns":[],"suggested_fix":null,"confidence":0.7}'

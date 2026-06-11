@@ -19,6 +19,7 @@ VARIANTS = [
     "mas_without_arbitrator",
     "mas_without_confidence",
     "full_mas",
+    "stage2_verify_v2",
 ]
 
 
