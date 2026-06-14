@@ -1,70 +1,264 @@
-# AutoEmpirical Reproduction and Stage-1 Dataset
+# AutoEmpirical-Reproduce
 
-This repository contains the original AutoEmpirical reproduction artifacts, a
-multi-agent-system experiment framework, and a new Stage-1 data construction
-pipeline for manually labeled empirical bug datasets.
+本仓库用于整理和复现 AutoEmpirical 相关实验数据。目前重点是构建一个面向经验软件工程论文的三阶段 bug 数据集，并保留后续 MAS/LLM 实验所需的统一输入格式。
 
-The latest additions focus on turning raw paper artifacts into a unified,
-analysis-ready table of bug records with explicit labels such as `symptom`,
-`root_cause`, `bug_type`, `component`, and `fix_type`.
+当前数据集包含 **7 篇论文**，共整理出三个阶段：
 
-## What Changed
+| 阶段 | 文件 | 含义 | 数量 |
+| --- | --- | --- | ---: |
+| Stage 1 Raw | `data/processed/stage1.csv` | 原始收集数据，未人工过滤，未标注 `symptom/root_cause` | 33,822 |
+| Stage 2 Filtered | `data/processed/stage2.csv` | 人工过滤后的 bug 相关数据，未标注 `symptom/root_cause` | 4,199 |
+| Stage 3 Annotated | `data/processed/stage3.csv` | 最终人工分析/标注数据，包含 `symptom` 和 `root_cause` | 2,050 |
 
-- `autoempirical_mas/` implements a reliability-oriented MAS workflow.
-- `run_mas_experiment.py` runs single-agent, voting, ablation, and full-MAS variants.
-- `evaluate_mas_results.py` evaluates task quality and efficiency from JSONL outputs.
-- Credentials are loaded from environment variables or `.env`; API keys are no longer hard-coded in scripts.
-- `data/manifest/manual_checklist.csv` records which paper datasets exist in
-  `data/raw/` and which raw datasets passed manual inspection.
-- `scripts/prepare_stage1_raw.py` copies manually verified raw datasets into
-  `data/raw_stage1/` without modifying the original `data/raw/` directory.
-- `scripts/redownload_stage1_candidates.py` supports isolated re-download
-  attempts for problematic raw sources and only accepts candidate tables that
-  contain both symptom-like and root-cause-like fields.
-- `autoempirical_dataset/stage1_converters.py` converts verified Stage-1 raw
-  datasets into a shared flat label schema.
-- `scripts/build_stage1_unified_dataset.py` builds the final Stage-1 unified
-  label table and conversion report.
-- `notebooks/stage1_visual_analysis.ipynb` provides visual analysis of root
-  causes, symptoms, sources, bug types, components, and fix types.
+`data/processed/stage1_final.csv` 目前保留为兼容旧脚本的副本，内容等同于 `stage3.csv`。
 
-## MAS Roles
+## 数据集结构
 
-- `Evidence Agent`: extracts issue evidence without making labels.
-- `Filter Agent`: classifies issue reports as `Accepted` or `Rejected`.
-- `Symptom Classifier Agent`: focuses on observable bug symptoms.
-- `Root Cause Classifier Agent`: focuses on underlying root causes.
-- `Critic Agent`: checks consistency against evidence and taxonomy definitions.
-- `Arbitrator Agent`: fuses candidates into the final structured decision.
+核心元数据文件：
 
-## MAS Framework
+- `data/processed/dataset_metadata.csv`：论文级 metadata，总结每篇论文的项目名、论文信息、三个阶段数量、过滤率和文件路径。
+- `data/processed/dataset_metadata.md`：便于人工查看的 Markdown 版 metadata。
+- `data/processed/paper_dataset_summary.csv`：论文级汇总表，包含 stage count、label coverage、数据路径和筛选说明。
+- `data/processed/paper_dataset_overview.md`：当前数据集概览。
 
-```mermaid
-flowchart TD
-    A["Benchmark Data<br/>sampled_issues_dataset.csv<br/>clean_CollectedIssues.csv"] --> B["IssueRecord Builder"]
-    B --> C["Evidence Agent<br/>extract evidence, ambiguity, missing context"]
+统一大表：
 
-    C --> D1["Filter Agents x3<br/>fault-related issue selection"]
-    C --> D2["Symptom Classifier Agent<br/>bug symptom taxonomy"]
-    C --> D3["Root Cause Classifier Agent<br/>root cause taxonomy"]
+- `data/processed/stage1.csv`
+- `data/processed/stage2.csv`
+- `data/processed/stage3.csv`
 
-    D1 --> E["Critic Agent<br/>evidence and taxonomy consistency check"]
-    D2 --> E
-    D3 --> E
-    C --> E
+按论文拆分的小文件夹：
 
-    D1 --> F["Arbitrator Agent<br/>final label, confidence, rationale"]
-    D2 --> F
-    D3 --> F
-    E --> F
-
-    F --> G["Structured JSONL Results<br/>final_output, per-agent traces, tokens, latency"]
-    G --> H["Evaluation<br/>accuracy, macro-F1, level accuracy,<br/>invalid output rate, cost, throughput"]
-
-    I["Ablation Variants<br/>single_agent, self_consistency, majority_vote,<br/>without evidence/critic/arbitrator/confidence"] --> B
+```text
+data/processed/by_paper/
+  <paper_id>/
+    stage1.csv
+    stage2.csv
+    stage3.csv
 ```
 
-## Experiment Variants
+这样师兄如果要“一篇论文一篇论文地跑实验”，可以直接读取 `data/processed/by_paper/<paper_id>/` 下对应阶段的数据。
+
+## 当前纳入论文
+
+| paper_id | venue | year | Stage 1 | Stage 2 | Stage 3 |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `ase2022_towards_understanding_the_faults_of` | ASE | 2022 | 3,859 | 684 | 682 |
+| `icse2021_iot_bugs_and_development_challenges` | ICSE | 2021 | 5,565 | 323 | 320 |
+| `issta2024_bugs_in_pods_understanding_bugs` | ISSTA | 2024 | 8,271 | 429 | 429 |
+| `icse2023_an_empirical_study_on_bugs` | ICSE | 2023 | 2,205 | 194 | 194 |
+| `icse2024_understanding_transaction_bugs_in_database` | ICSE | 2024 | 7,775 | 140 | 140 |
+| `fse2021_an_exploratory_study_of_autopilot` | FSE | 2021 | 569 | 168 | 142 |
+| `icse2022_an_empirical_study_on_performance` | ICSME | 2022 | 5,578 | 2,261 | 143 |
+
+此前发现有两篇论文的 `Stage 1 -> Stage 2` 过滤率为 0，因此已从最终数据集中移除：
+
+- `fse2023_understanding_the_bug_characteristics_and`
+- `icse2022_characterizing_and_detecting_bugs_in`
+
+## 字段说明
+
+三个阶段的 CSV 使用统一 schema，主要字段包括：
+
+- `record_id`
+- `paper_id`
+- `source_project`
+- `issue_url`
+- `title`
+- `body`
+- `comments`
+- `created_at`
+- `updated_at`
+- `state`
+- `symptom`
+- `root_cause`
+- `bug_type`
+- `component`
+- `sub_component`
+- `trigger_condition`
+- `consequence`
+- `fix_type`
+- `severity_or_impact`
+- `original_label_json`
+- `source_file`
+- `source_sheet`
+- `source_row_index`
+
+其中：
+
+- `stage1.csv` 和 `stage2.csv` 的 `symptom`、`root_cause` 字段为空，因为这两个阶段还没有做最终人工标注。
+- `stage3.csv` 的 `symptom`、`root_cause` 字段均已填充。
+- 所有阶段都保留 `paper_id`，方便按论文切分实验。
+
+## 重新生成数据
+
+使用下面的脚本可以重新生成最终三阶段数据、metadata 和按论文拆分文件：
+
+```powershell
+python scripts/build_final_paper_dataset.py
+```
+
+该脚本会生成或更新：
+
+- `data/processed/stage1.csv`
+- `data/processed/stage2.csv`
+- `data/processed/stage3.csv`
+- `data/processed/stage1_final.csv`
+- `data/processed/dataset_metadata.csv`
+- `data/processed/dataset_metadata.md`
+- `data/processed/paper_dataset_summary.csv`
+- `data/processed/paper_dataset_overview.md`
+- `data/processed/by_paper/<paper_id>/stage1.csv`
+- `data/processed/by_paper/<paper_id>/stage2.csv`
+- `data/processed/by_paper/<paper_id>/stage3.csv`
+
+脚本中包含对 GitHub 临时下载链接中 `AKIA...` / `ASIA...` 形式字符串的脱敏处理，避免 GitHub push protection 将这些公开临时 URL 误判为 AWS secret。
+
+## 数据质量检查
+
+当前检查结果：
+
+- `stage1.csv`：33,822 行，`symptom/root_cause` 均为空。
+- `stage2.csv`：4,199 行，`symptom/root_cause` 均为空。
+- `stage3.csv`：2,050 行，`symptom/root_cause` 无缺失。
+- 每条记录都有 `paper_id`。
+- `dataset_metadata.csv` 的数量由三个 stage 表直接统计得到。
+
+运行测试：
+
+```powershell
+python -m pytest tests/test_stage1_converters.py tests/test_stage1_raw.py
+```
+
+当前测试结果为 `13 passed`。
+
+## 原始数据与中间数据
+
+主要目录：
+
+- `data/raw/`：从论文 artifact 或公开仓库下载/整理得到的原始文件。
+- `data/raw_stage1/`：经过人工检查后用于当前数据集构建的原始数据子集。
+- `data/interim/stage1_converted/`：部分论文转换后的中间统一格式。
+- `data/processed/`：最终可查看、可实验使用的数据表。
+
+历史/辅助文件：
+
+- `data/processed/stage1_unified_labels.csv`：早期统一 label 表。
+- `data/processed/stage1_visuals/`：早期可视化分析结果。
+- `data/manifest/`：数据源 manifest、下载状态和人工检查记录。
+
+## MAS v2 设计
+
+当前 MAS 设计以 `docs/mas_design_v2.md` 为准。v2 不再是简单的“Evidence Agent + Filter Agent + Symptom/RootCause Agent + Critic + Arbitrator”串行流程，而是把后续实验拆成两个专项系统：
+
+1. **Stage 2：Bug 有效性验证（MAS-Verify）**，判断 Stage 1 原始候选记录是否应该进入人工过滤后的 bug 集合。
+2. **Stage 3：多标签分类（MAS-Classify）**，对 Stage 2 已接受记录标注 `symptom`、`root_cause`、`bug_type`、`fix_type` 等标签。
+
+这个设计的核心目标是模拟人工经验研究中的质量控制流程：先独立收集证据，再进行一致性检测、分歧讨论和最终仲裁，而不是让单个 LLM 一次性给出最终标签。
+
+### 数据阶段与 MAS 任务
+
+当前三阶段数据可以对应到 MAS v2 的两个主要任务：
+
+| 数据阶段 | 人工流程 | MAS 对应任务 |
+| --- | --- | --- |
+| `stage1.csv` | 原始候选数据 | MAS-Verify 输入 |
+| `stage2.csv` | 人工过滤后的 bug 相关数据 | MAS-Verify gold set / MAS-Classify 输入 |
+| `stage3.csv` | 人工标注后的最终数据 | MAS-Classify gold labels |
+
+因此，后续实验可以分成两类：
+
+- Stage 2 验证实验：输入 `stage1.csv`，预测哪些记录应该进入 `stage2.csv`。
+- Stage 3 标注实验：输入 `stage2.csv`，预测 `stage3.csv` 中的 `symptom`、`root_cause` 等标签。
+
+### Stage 2：MAS-Verify
+
+Stage 2 的核心设计是 **四路并行证据聚合 + 置信度门控**。四类 agent 分别从 issue 文本、评论、链接和结构化元数据中提取证据，再由 Evidence Synthesizer 聚合，低置信度样本进入 Validity Critic 和 Arbitrator。
+
+```mermaid
+flowchart TB
+    issue["Issue Record\ntitle + body + comments + metadata"]
+
+    subgraph parallel["四路并行证据分析"]
+        ta["Text Analyzer\n文本 bug 信号"]
+        ca["Comment Analyst\n开发者确认/拒绝信号"]
+        la["Link Analyst\nPR/commit fix 证据"]
+        ma["Metadata Analyzer\nlabels / state / milestone"]
+    end
+
+    synth["Evidence Synthesizer\n加权聚合四路证据"]
+    gate{"conf >= 0.75?"}
+    fast["Fast Out"]
+    critic["Validity Critic\ninvalid 模式检查"]
+    arb["Arbitrator\nAccepted / Rejected / Uncertain"]
+
+    issue --> ta & ca & la & ma
+    ta & ca & la & ma --> synth
+    synth --> gate
+    gate -->|Yes| fast
+    gate -->|No| critic
+    critic --> arb
+```
+
+Stage 2 输出包括 `verdict`、`confidence`、`evidence`、`linked_commits`、`invalid_pattern`、`review_flag`、`text_available` 和 `api_calls`。当前代码中已经有 `stage2_verify_v2` 变体，用于对齐这一部分设计。
+
+### Stage 3：MAS-Classify
+
+Stage 3 的核心设计是 **三路独立标注 + IRR 检测 + 分歧辩论**。它模拟人工实证研究中的 inter-rater reliability 流程：多个标注者先独立判断，再检测字段级一致性；一致性高的字段快速仲裁，有分歧的字段进入 debate protocol。
+
+```mermaid
+flowchart TB
+    bug["Confirmed Bug Record\n来自 Stage 2 Accepted 结果"]
+    ev["Evidence Agent\n提取可引用事实"]
+
+    subgraph annotators["三路并行独立标注"]
+        aa["Annotator A\nSymptom 视角"]
+        ab["Annotator B\nDeveloper / Root Cause 视角"]
+        ac["Annotator C\nResearcher / Taxonomy 视角"]
+    end
+
+    irr["IRR Detector\n字段级一致性检测"]
+    gate{"agreement >= 0.67?"}
+    fast_a["Fast Arbitrator\n直接取共识"]
+    debate["Debate Protocol\n最多 3 轮分歧讨论\nSOP Validator 校验标签边界"]
+    full_a["Full Arbitrator\n输出标签或 uncertain"]
+
+    bug --> ev
+    ev --> aa & ab & ac
+    aa & ab & ac --> irr
+    irr --> gate
+    gate -->|高一致性| fast_a
+    gate -->|存在分歧字段| debate
+    debate --> full_a
+    fast_a --> full_a
+```
+
+Stage 3 输出包括 `symptom`、`root_cause`、`bug_type`、`fix_type`、`uncertain_fields`、字段级 `confidence`、`annotator_agreements`、`debate_rounds` 和 `debate_termination`。这部分设计目前记录在 `docs/mas_design_v2.md`，后续代码实现应继续向该设计对齐。
+
+### 实验变体设计
+
+v2 设计中保留的核心消融实验如下：
+
+| Variant | 目的 |
+| --- | --- |
+| `single_agent` | 单个 LLM 直接完成任务，作为最简单 baseline。 |
+| `mas_v1` | 旧版串行 MAS，用于和 v2 直接对比。 |
+| `stage2_text_only` | Stage 2 只使用文本分析，验证四路证据聚合的必要性。 |
+| `stage2_no_gate` | Stage 2 去掉置信度门控，验证门控对质量和成本的影响。 |
+| `stage3_no_irr` | Stage 3 三路并行但不做 IRR 检测，直接多数投票。 |
+| `stage3_no_sop` | Stage 3 保留 IRR，但去掉 SOP Validator，验证 taxonomy 约束的作用。 |
+| `stage3_no_debate` | Stage 3 检测分歧但不辩论，直接标记 uncertain。 |
+| `full_mas_v2` | 完整 v2 系统：Stage 2 MAS-Verify + Stage 3 MAS-Classify。 |
+
+## MAS 实验
+
+仓库中还保留了 AutoEmpirical 的多智能体实验框架：
+
+- `autoempirical_mas/`
+- `run_mas_experiment.py`
+- `evaluate_mas_results.py`
+
+支持的实验变体包括：
 
 - `single_agent`
 - `self_consistency`
@@ -75,255 +269,47 @@ flowchart TD
 - `mas_without_confidence`
 - `full_mas`
 
-These variants directly support the planned RQs about MAS performance,
-efficiency, and ablation of each design contribution.
-
-## Setup
-
-Install dependencies:
-
-```powershell
-pip install -r requirements.txt
-```
-
-Create a local `.env` from `.env.example` and fill in the keys needed by your
-backend:
-
-```powershell
-Copy-Item .env.example .env
-```
-
-The `.env` file is ignored by git.
-
-## Run Experiments
-
-Offline smoke test with the mock backend:
+离线 smoke test：
 
 ```powershell
 python run_mas_experiment.py --task filtering --variant full_mas --backend mock --model mock --limit 5
 python evaluate_mas_results.py --task filtering --predictions res/mas_filtering_full_mas_mock.jsonl
 ```
 
-Run the full MAS with an OpenAI-compatible backend:
+## 环境配置
+
+安装依赖：
 
 ```powershell
-python run_mas_experiment.py --task filtering --variant full_mas --backend openai --model gpt-4o-mini
-python run_mas_experiment.py --task classification --variant full_mas --backend openai --model gpt-4o-mini
+pip install -r requirements.txt
 ```
 
-Run through CAMEL-AI role agents:
+如果需要调用 LLM API，可创建本地 `.env` 文件并填入密钥：
 
 ```powershell
-python run_mas_experiment.py --task classification --variant full_mas --backend camel --model gpt-4o-mini
+Copy-Item .env.example .env
 ```
 
-Evaluate:
+`.env` 不应提交到 Git。
+
+## GitHub 提交注意事项
+
+当前三阶段数据文件大小约为：
+
+- `stage1.csv`：约 30 MB
+- `stage2.csv`：约 6 MB
+- `stage3.csv`：约 8 MB
+
+整体大小可以直接放到 GitHub。提交前建议检查是否存在疑似 secret：
 
 ```powershell
-python evaluate_mas_results.py --task filtering --predictions res/mas_filtering_full_mas_gpt-4o-mini.jsonl
-python evaluate_mas_results.py --task classification --predictions res/mas_classification_full_mas_gpt-4o-mini.jsonl
+git grep -n -E "AKIA[0-9A-Z]{16}|ASIA[0-9A-Z]{16}" HEAD -- data scripts
 ```
 
-## Data
-
-- Filtering benchmark: `data/sampled_issues_dataset.csv`
-- Classification benchmark: `data/clean_CollectedIssues.csv`
-- Existing baseline outputs: `res/Filteration_*.csv` and `res/Labeling_*.csv`
-- Stage-1 manually verified raw data: `data/raw_stage1/`
-- Stage-1 converted per-paper records: `data/interim/stage1_converted/`
-- Stage-1 unified labels: `data/processed/stage1_unified_labels.csv`
-- Stage-1 visual analysis outputs: `data/processed/stage1_visuals/`
-
-## Phase-1 Dataset Construction
-
-The phase-1 dataset pipeline turns the empirical bug-study collection workbook
-into a machine-readable source manifest, converts local seed datasets into a
-shared bug-report schema, deduplicates records, and writes reproducible summary
-tables.
-
-Build the current offline dataset:
+如果重新生成数据，请优先使用：
 
 ```powershell
-python scripts/build_phase1_dataset.py
+python scripts/build_final_paper_dataset.py
 ```
 
-Generated artifacts:
-
-- `data/manifest/dataset_sources.csv`: 52-paper source manifest from
-  `Attachments/AutoEmpirical-Dataset-Collection.xlsx`.
-- `data/interim/<source>/records.csv`: per-source converted records.
-- `data/processed/autoempirical_bug_dataset.csv`: unified phase-1 dataset.
-- `data/processed/data_dictionary.md`: schema and field definitions.
-- `data/processed/quality_report.md`: build summary, validation notes, and
-  source status counts.
-- `data/processed/summary.csv` and `records_by_*.csv`: analysis-ready summary
-  tables.
-
-The first build uses the TensorFlow.js/JavaScript DL local seed data already in
-this repository. Other papers from the workbook are registered as pending or
-deferred in the manifest until their raw datasets are downloaded, licensed, and
-given a converter.
-
-Check and download phase-1 raw sources:
-
-```powershell
-python scripts/download_phase1_sources.py --dry-run
-python scripts/download_phase1_sources.py --categories auto_direct --limit 2
-python scripts/download_phase1_sources.py --source-indexes 7,8,30
-```
-
-The downloader writes raw files under `data/raw/<paper_id>/`, records every
-attempt in `data/manifest/download_status.csv`, and lists manual follow-ups in
-`data/manifest/manual_download_needed.csv`. It prints per-source progress by
-default, skips existing files instead of overwriting them, and treats large or
-ambiguous sources as manual follow-ups. Add `--quiet` only if you want to
-suppress the progress log.
-
-If GitHub returns `HTTP Error 403: rate limit exceeded`, wait for the anonymous
-API limit to reset or set a GitHub token before rerunning:
-
-```powershell
-$env:GITHUB_TOKEN="your_token_here"
-python scripts/download_phase1_sources.py --categories auto_repo_or_dir
-```
-
-You can also retry smaller batches:
-
-```powershell
-python scripts/download_phase1_sources.py --categories auto_repo_or_dir --source-indexes 4,5,6
-```
-
-## Stage-1 Raw Dataset Preparation
-
-Stage-1 starts from the paper-level manifest and manual checklist. The goal is
-to isolate only the raw datasets that appear to contain manually labeled bug
-records with both symptom and root-cause information.
-
-Prepare the verified Stage-1 raw directory:
-
-```powershell
-python scripts/prepare_stage1_raw.py
-```
-
-This script:
-
-- reads `data/manifest/manual_checklist.csv`;
-- creates `data/raw_stage1/` and `data/manifest/stage1/`;
-- copies only records marked as both `is_manual_checked_OK=true` and
-  `is_existing_in_raw=true`;
-- writes `data/manifest/stage1/stage1_accepted.csv`;
-- writes `data/manifest/stage1/stage2_missing_raw.csv` for sources missing
-  from `data/raw/`;
-- skips existing target files instead of overwriting them.
-
-Problematic raw sources can be retried in an isolated candidate directory:
-
-```powershell
-python scripts/redownload_stage1_candidates.py
-```
-
-The re-download script writes only to `data/raw_stage1_candidates/`. It does
-not modify `data/raw/` or `data/raw_stage1/`. Candidate files are accepted only
-when they are parseable table-like files and contain both symptom-like and
-root-cause-like columns. README files, requirements files, code-only
-repositories, and unrelated tables are rejected and recorded in the Stage-1
-manifest.
-
-## Stage-1 Unified Label Dataset
-
-The Stage-1 converter builds a single flat dataset from manually verified raw
-tables. Each output row is one bug, issue, or record, with a shared schema:
-
-- identifiers and context: `record_id`, `paper_id`, `source_project`,
-  `issue_url`, `title`, `body`, `comments`, `created_at`, `updated_at`, `state`;
-- labels: `symptom`, `root_cause`, `bug_type`, `component`, `sub_component`,
-  `trigger_condition`, `consequence`, `fix_type`, `severity_or_impact`;
-- provenance: `original_label_json`, `source_file`, `source_sheet`,
-  `source_row_index`.
-
-Build the unified Stage-1 dataset:
-
-```powershell
-python scripts/build_stage1_unified_dataset.py
-```
-
-Generated artifacts:
-
-- `data/interim/stage1_converted/<paper_id>/records.csv`: per-paper converted
-  records using the shared schema.
-- `data/processed/stage1_unified_labels.csv`: merged Stage-1 dataset.
-- `data/processed/stage1_conversion_report.csv`: per-source row counts and
-  missing-label counts.
-- `data/processed/stage1_label_dictionary.md`: field definitions for the
-  unified label schema.
-
-The current Stage-1 build contains 1,907 records from 8 verified sources. The
-`root_cause` field is populated for all current records, while `symptom` is
-populated for 1,869 records. Sources without a clear root-cause label, such as
-the previously inspected ASE 2020 CP Detector table and ICPC 2025 app-UI table,
-are excluded from the active unified build.
-
-The ICSE 2024 TXBug source is converted from the `ALL` sheet of
-`TXBug_Set.xlsx`, using `Failure Symptom` and `Root Cause` as the core label
-columns. CSV outputs are normalized so each record occupies one physical line,
-which makes the files easier to inspect in text editors.
-
-## Stage-1 Visual Analysis
-
-The notebook `notebooks/stage1_visual_analysis.ipynb` analyzes the unified
-Stage-1 label table and exports figures and summary tables.
-
-Run it from Jupyter, or execute it from the command line:
-
-```powershell
-jupyter nbconvert --to notebook --execute --inplace notebooks/stage1_visual_analysis.ipynb
-```
-
-The notebook covers:
-
-- data quality and field coverage;
-- records by paper and source project;
-- top root causes, symptoms, bug types, components, and fix types;
-- source-project by root-cause and source-project by symptom heatmaps;
-- root-cause by symptom heatmaps;
-- bug-type/component/fix-type by root-cause heatmaps;
-- source-level label diversity using Shannon entropy.
-
-Generated visual analysis artifacts are written to
-`data/processed/stage1_visuals/`, including:
-
-- `01_core_field_coverage.png`;
-- `04_top_root_causes.png`;
-- `05_top_symptoms.png`;
-- `09_source_root_cause_count.png`;
-- `12_root_cause_symptom_heatmap.png`;
-- `stage1_visual_analysis_summary.md`;
-- supporting CSV tables for counts, pair frequencies, and source diversity.
-
-## Tests
-
-Run the dataset construction tests:
-
-```powershell
-python -m unittest tests.test_stage1_converters tests.test_stage1_raw tests.test_download_sources
-```
-
-The Stage-1 converter tests verify that all active converters produce the same
-schema, that representative sources map `symptom` and `root_cause` correctly,
-that excluded no-root-cause sources are not included in the active build, that
-record identifiers are unique after merging, and that generated CSV fields do
-not contain embedded newlines.
-
-## Notes
-
-- The deterministic orchestration and ablation logic live in this repository so
-  results are reproducible across backends.
-- CAMEL-AI is used as an optional role-agent backend; the same MAS protocol can
-  also run through OpenAI-compatible APIs for cost and compatibility experiments.
-- Result files are JSONL so failed samples, invalid JSON, token usage, latency,
-  and per-agent traces can be audited later.
-- Stage-1 raw data is copied into `data/raw_stage1/` instead of moved. The
-  original `data/raw/` directory is preserved.
-- Re-download candidates are stored separately under
-  `data/raw_stage1_candidates/` and are not mixed into the verified Stage-1 raw
-  directory automatically.
+不要手动编辑大 CSV，避免 metadata 和阶段表之间数量不一致。
