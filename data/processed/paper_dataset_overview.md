@@ -16,15 +16,15 @@ Final annotated dataset file: `data/processed/stage3.csv`
 
 ## Included Papers
 
-| Venue | Year | Paper                                                                       | Stage 1 Raw | Stage 2 Filtered | Stage 3 Annotated | S1->S2 Filter Rate | Symptom Coverage | Root Cause Coverage |
-| ----- | ---- | --------------------------------------------------------------------------- | ----------- | ---------------- | ----------------- | ------------------ | ---------------- | ------------------- |
-| ASE   | 2022 | Towards understanding the faults of javascript-based deep learning systems  | 3859        | 684              | 682               | 82.3%              | 682/682          | 682/682             |
-| ICSE  | 2021 | IoT Bugs and Development Challenges                                         | 5565        | 323              | 320               | 94.2%              | 320/320          | 320/320             |
-| ISSTA | 2024 | Bugs in Pods: Understanding Bugs in Container Runtime Systems               | 8271        | 429              | 429               | 94.8%              | 429/429          | 429/429             |
-| ICSE  | 2023 | An Empirical Study on Bugs Inside PyTorch: A Replication Study              | 2205        | 194              | 194               | 91.2%              | 194/194          | 194/194             |
-| ICSE  | 2024 | Understanding Transaction Bugs in Database Systems                          | 7775        | 140              | 140               | 98.2%              | 140/140          | 140/140             |
-| FSE   | 2021 | An Exploratory Study of Autopilot Software Bugs in Unmanned Aerial Vehicles | 569         | 168              | 142               | 70.5%              | 142/142          | 142/142             |
-| ICSME | 2022 | An Empirical Study on Performance Bugs in Deep Learning Frameworks          | 5578        | 2261             | 143               | 59.5%              | 143/143          | 143/143             |
+| Venue | Raw Data Time Range      | Paper                                                                       | Stage 1 Raw | Stage 2 Filtered | Stage 3 Annotated | S1->S2 Filter Rate | Symptom Coverage | Root Cause Coverage |
+| ----- | ------------------------ | --------------------------------------------------------------------------- | ----------- | ---------------- | ----------------- | ------------------ | ---------------- | ------------------- |
+| ASE   | 2018-03-27 to 2021-12-23 | Towards understanding the faults of javascript-based deep learning systems  | 3859        | 684              | 682               | 82.3%              | 682/682          | 682/682             |
+| ICSE  | 2012-07-27 to 2020-03-13 | IoT Bugs and Development Challenges                                         | 5565        | 323              | 320               | 94.2%              | 320/320          | 320/320             |
+| ISSTA | 2021-06-01 to 2023-05-31 | Bugs in Pods: Understanding Bugs in Container Runtime Systems               | 8271        | 429              | 429               | 94.8%              | 429/429          | 429/429             |
+| ICSE  | up to 2022-10-20         | An Empirical Study on Bugs Inside PyTorch: A Replication Study              | 2205        | 194              | 194               | 91.2%              | 194/194          | 194/194             |
+| ICSE  | 2018-01 to 2022-12       | Understanding Transaction Bugs in Database Systems                          | 7775        | 140              | 140               | 98.2%              | 140/140          | 140/140             |
+| FSE   | not published in source  | An Exploratory Study of Autopilot Software Bugs in Unmanned Aerial Vehicles | 569         | 168              | 142               | 70.5%              | 142/142          | 142/142             |
+| ICSME | 2016-08-16 to 2021-03-16 | An Empirical Study on Performance Bugs in Deep Learning Frameworks          | 5578        | 2261             | 143               | 59.5%              | 143/143          | 143/143             |
 
 ## Excluded Papers
 

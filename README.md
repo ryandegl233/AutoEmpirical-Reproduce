@@ -41,15 +41,15 @@ data/processed/by_paper/
 
 ## 当前纳入论文
 
-| paper_id | venue | year | Stage 1 | Stage 2 | Stage 3 |
-| --- | --- | ---: | ---: | ---: | ---: |
-| `ase2022_towards_understanding_the_faults_of` | ASE | 2022 | 3,859 | 684 | 682 |
-| `icse2021_iot_bugs_and_development_challenges` | ICSE | 2021 | 5,565 | 323 | 320 |
-| `issta2024_bugs_in_pods_understanding_bugs` | ISSTA | 2024 | 8,271 | 429 | 429 |
-| `icse2023_an_empirical_study_on_bugs` | ICSE | 2023 | 2,205 | 194 | 194 |
-| `icse2024_understanding_transaction_bugs_in_database` | ICSE | 2024 | 7,775 | 140 | 140 |
-| `fse2021_an_exploratory_study_of_autopilot` | FSE | 2021 | 569 | 168 | 142 |
-| `icse2022_an_empirical_study_on_performance` | ICSME | 2022 | 5,578 | 2,261 | 143 |
+| paper_id | venue | raw_data_time_range | Stage 1 | Stage 2 | Stage 3 |
+| --- | --- | --- | ---: | ---: | ---: |
+| `ase2022_towards_understanding_the_faults_of` | ASE | 2018-03-27 to 2021-12-23 | 3,859 | 684 | 682 |
+| `icse2021_iot_bugs_and_development_challenges` | ICSE | 2012-07-27 to 2020-03-13 | 5,565 | 323 | 320 |
+| `issta2024_bugs_in_pods_understanding_bugs` | ISSTA | 2021-06-01 to 2023-05-31 | 8,271 | 429 | 429 |
+| `icse2023_an_empirical_study_on_bugs` | ICSE | up to 2022-10-20 | 2,205 | 194 | 194 |
+| `icse2024_understanding_transaction_bugs_in_database` | ICSE | 2018-01 to 2022-12 | 7,775 | 140 | 140 |
+| `fse2021_an_exploratory_study_of_autopilot` | FSE | not published in source | 569 | 168 | 142 |
+| `icse2022_an_empirical_study_on_performance` | ICSME | 2016-08-16 to 2021-03-16 | 5,578 | 2,261 | 143 |
 
 此前发现有两篇论文的 `Stage 1 -> Stage 2` 过滤率为 0，因此已从最终数据集中移除：
 
