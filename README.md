@@ -37,7 +37,7 @@ data/processed/by_paper/
     stage3.csv
 ```
 
-这样师兄如果要“一篇论文一篇论文地跑实验”，可以直接读取 `data/processed/by_paper/<paper_id>/` 下对应阶段的数据。
+如果要“一篇论文一篇论文地跑实验”，可以直接读取 `data/processed/by_paper/<paper_id>/` 下对应阶段的数据。
 
 ## 当前纳入论文
 
